@@ -1,4 +1,4 @@
-# Powershell Prompt Theme
+# Prompt String
 
 This is a custom prompt string designed for personal use.
 
