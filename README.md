@@ -8,7 +8,7 @@ This is a custom prompt string designed for personal use.
 
 Follow these steps to set up and use the theme:
 
-1. **Install Fira Code Font with Unicode Icons**: It's necessary to install the Fira Code font from [Nerd Fonts](https://www.nerdfonts.com/font-downloads). This font ensures that your custom icons and symbols are rendered correctly in your PowerShell prompt.
+1. **Install a nerd font for icon support**: It's necessary to install a font from [Nerd Fonts](https://www.nerdfonts.com/font-downloads). This ensures that your custom icons and symbols are rendered correctly in your terminal.
 
 ### Powershell
 
