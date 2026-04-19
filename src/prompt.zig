@@ -40,12 +40,12 @@ pub const Simple = struct {
 
 pub const Stdio = struct {
     in_buf: [256]u8 = undefined,
-    in: std.fs.File.Reader,
+    in: std.Io.File.Reader,
     out_buf: [256]u8 = undefined,
-    out: std.fs.File.Writer,
+    out: std.Io.File.Writer,
 
-    pub fn initRef(self: *@This()) void {
-        self.in = std.fs.File.stdin().reader(&self.in_buf);
-        self.out = std.fs.File.stdout().writer(&self.out_buf);
+    pub fn initRef(self: *@This(), io: std.Io) void {
+        self.in = std.Io.File.stdin().reader(io, &self.in_buf);
+        self.out = std.Io.File.stdout().writer(io, &self.out_buf);
     }
 };

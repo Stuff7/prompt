@@ -5,13 +5,11 @@ const log = std.log;
 
 const ansi = zut.utf8.ansi;
 
-pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}).init;
-    defer _ = gpa.deinit();
-    const allocator = gpa.allocator();
+pub fn main(init: std.process.Init) !void {
+    const allocator = init.gpa;
 
     var stdio: prompt.Stdio = undefined;
-    stdio.initRef();
+    stdio.initRef(init.io);
 
     var ps = prompt.Session(8){
         .allocator = allocator,
@@ -21,14 +19,14 @@ pub fn main() !void {
     };
     defer ps.deinit();
 
-    var args = try std.process.argsWithAllocator(allocator);
+    var args = init.minimal.args.iterate();
     defer args.deinit();
     _ = args.skip();
 
     if (args.next()) |history_path| {
-        const history = try std.fs.cwd().openFile(history_path, .{});
+        const history = try std.Io.Dir.cwd().openFile(init.io, history_path, .{});
         var buf: [512]u8 = undefined;
-        var r = history.reader(&buf);
+        var r = history.reader(init.io, &buf);
 
         while (true) {
             const ln = r.interface.takeDelimiterExclusive('\n') catch |err| switch (err) {
